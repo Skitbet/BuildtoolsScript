@@ -1,12 +1,13 @@
 @echo off
 title SpigotMC BuildTools Builder
-IF NOT EXIST BuildTools (
-    mkdir BuildTools
+set /p Version=Enter the version: || set Version=latest
+set /p Path=Path to java:
+IF NOT EXIST %Version% (
+    mkdir %Version%
 )
-cd BuildTools
+cd %Version%
 curl -z BuildTools.jar -o BuildTools.jar https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
-set /p Input=Enter the version: || set Input=latest
-"path to java" -jar BuildTools.jar --rev %Input%
+%Path% -jar BuildTools.jar --rev %Version%
 cls
 echo "Done!"
 pause
